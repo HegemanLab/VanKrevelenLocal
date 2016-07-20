@@ -144,7 +144,7 @@ if new_ratios == 'new':
             write_ratios = str(raw_input("\nWould you like to write a text file with the generated ratio data?\nThis will "
                                          "greatly reduce processing time if you want to generate other plots in the future.\n"
                                          "This is highly recommended.\n"
-                                 "\nEnter 'y' for yes or 'n' for no: "))
+                                         "\nEnter 'y' for yes or 'n' for no: "))
             write_ratios = write_ratios.lower()
 
             # if a good answer is provided, end loop
