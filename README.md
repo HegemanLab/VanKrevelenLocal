@@ -20,7 +20,7 @@ To run this program, save a copy of your mzXML file to this folder (or the same 
 
 The commands should be something similar to...
 > \>cd Desktop	
-> \>cd VanKrevelen	
+> \>cd VanKrevelenLocal	
 
 ...if you saved the script to your desktop. If you need to move up a file level, use the "cd .." command.
 A decent introduction to the commandline can be found [here](http://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything), but this has way more information than you will need for running this script.
