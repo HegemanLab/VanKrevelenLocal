@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb9b0b74-9e1c-42b4-9b6d-8f27d967f22a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MzXML.py" afterPath="$PROJECT_DIR$/MzXML.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VanKrevelen.py" afterPath="$PROJECT_DIR$/VanKrevelen.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VanKrevelenYourMap.py" afterPath="$PROJECT_DIR$/VanKrevelenYourMap.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aggregateDriver.py" afterPath="$PROJECT_DIR$/aggregateDriver.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bmrbLookup.py" afterPath="$PROJECT_DIR$/bmrbLookup.py" />
     </list>
     <ignored path="VanKrevlenCommandLine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -421,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1469630149994</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated bmrbLookup">
+      <created>1469637156855</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1469637156855</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
