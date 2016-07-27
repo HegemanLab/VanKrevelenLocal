@@ -8,7 +8,7 @@ def getLookupTable(tableFilename):
 
 
 # "Formula_mono_iso_wt_nat"
-def getFormulaFromMass(mass, lookupTable, tolerance=.005):
+def getFormulaFromMass(mass, lookupTable, tolerance=.004051363):
 
     wt_list = list(lookupTable["Formula_mono_iso_wt_nat"])
 
@@ -33,7 +33,7 @@ def getFormulaFromMass(mass, lookupTable, tolerance=.005):
 def adjust(mass, polarity):
 
     # Not sure which of these would be best. regular H+ or monoisotopic H+
-    hm = 1.007276
+    hm = 1.007276466879
 
     if polarity == 'pos':
         mass += hm
