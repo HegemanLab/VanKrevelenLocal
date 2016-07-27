@@ -2,6 +2,10 @@
 Takes a csv as an input and works through the compounds to extract the number of C, H, and O
 present. It also notes if N is present and marks those points, then calculates the ratios of
 H:C and O:C and plots them and generates a Heatmap based on a second csv input.
+
+Due to taking two inputs, this plotting option was left out of the commandline aggregate tool
+however, it can still be used by saving the ratios lists to files, reading them in in the command
+line or through another script, and then using those as parameters to the core function of this script.
 '''
 import os
 import sys
@@ -12,11 +16,8 @@ import heatmap
 from extractNeededElementalData import extract_needed_elemental_data
 from processElementalData import process_elemental_data
 
-#TODO this will need some overhauling because the plot takes two inputs not one...
+# Little function to make the testing to see if the points are close a bit easier.
 def compareXY(XY1, XY2):
-    '''
-    Little function to make the testing to see if the points are close a bit easier.
-    '''
 
     # These define what is close enough to count. If you're not satisfied with the script's
     # heatmapping, this is a good place to start making adjustments to its sensitivity.
@@ -32,34 +33,7 @@ def compareXY(XY1, XY2):
 
     return okay
 
-# usage_mesg = 'VanKrevelenYourMap.py <file to plot> <file for map>'
-#
-# # Checks if files are available.
-# filename_txt = sys.argv[1]
-# if not os.access(filename_txt, os.R_OK):
-#     print "%s is not accessible." % filename_txt
-#     print usage_mesg
-#     sys.exit(1)
-#
-# filename_txt = sys.argv[2]
-# if not os.access(filename_txt, os.R_OK):
-#     print "%s is not accessible." % filename_txt
-#     print usage_mesg
-#     sys.exit(1)
-#
-# # If the right number of inputs are provided then run the analysis for both data sets
-# if(len(sys.argv) == 3 ):
-#
-#     # Processes file to plot (top layer)
-#     filename_txt_plot = sys.argv[1]
-#     elementalList_plot = extract_needed_elemental_data(filename_txt_plot)
-#     ratiosList_plot = process_elemental_data(elementalList_plot)
-#
-#     # Processes file to map (bottom image)
-#     filename_txt_map = sys.argv[2]
-#     elementalList_map = extract_needed_elemental_data(filename_txt_map)
-#     ratiosList_map = process_elemental_data(elementalList_map)
-# VanKrevelen scatter mapped over heat map
+# function for plotting one set of ratios as a heat map and the other as a scatter
 def plotYourMap(ratiosList_map, ratiosList_plot):
 
     # Another good area to adjust configurations. This is the percent of nodes that

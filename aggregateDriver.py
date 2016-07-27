@@ -7,17 +7,14 @@ script, then having you enter in the files one by one.
 import os
 import extractNeededElementalData
 import processElementalData
-
-
-# additional created classes/packages
 import bmrbLookup as bmrb
 from process_mzs_mzML import process_mzs as ML_process
 from MzXML import MzXML
 from process_mzs import process_mzs as XML_process
 from flexPlot import plotVanK
 
+# Begin command line interaction
 print("\nWelcome to the Van Krevelen Aggregator.")
-#TODO add in more in depth commenting to this file and also the bmrb and VanK files.
 
 # set up flag for loop
 new_ratios_flag = False
@@ -42,10 +39,14 @@ while not new_ratios_flag:
         # if a good answer is provided, end loop
         if new_ratios == 'new' or new_ratios == 'load':
             write_ratios_flag = True
+
 # Move into loading new data files
 if new_ratios == 'new':
 
+    # Set up variable for the list of file names
     files = []
+
+    # prompt for input
     print("Please enter each file you would like to process one at at time.")
     print("When you are done entering files, type 'done' and remember to include the file extensions (.mzXML or .mzML).\n")
     print("Now enter your first file, then press return."
@@ -54,19 +55,24 @@ if new_ratios == 'new':
 
     # Continues to add as many files as the user wants.
     while new_file.lower() != "done":
+
         # Makes sure file is accessible
         if not os.access(new_file, os.R_OK):
             print "%s is not accessible." % new_file
             print "Please try again. The files you use must be in the same file as this script."
-        # Checks for one of the two desired file extensions and if the file is accessible and has the correct
-        # ending then it is added to the list of the files.
+
         else:
+
+            # Checks for one of the two desired file extensions and if the file is accessible and has the correct
+            # ending then it is added to the list of the files.
             # This isn't a perfect error catching method but should catch enough.
             if ".mzXML" in new_file or ".mzML" in new_file:
                 files.append(new_file)
+
             else:
                 print("\nIncorrect file extension.")
-        # Reprompt
+
+        # Re-prompt
         print("\nEnter another file with its extension, or enter 'done' and hit return.")
         new_file = raw_input("\nEnter Input: ")
 
@@ -86,7 +92,9 @@ if new_ratios == 'new':
         try:
             threshold = float(threshold_input) * .01
             t_flag = True
-        except:
+
+        # Catch non numeric values that were entered
+        except ValueError or TypeError:
             threshold_input = raw_input("\nIncorrect input, please enter just a number.\nThreshold: ")
 
     # prepares to process mzs from input files
@@ -126,8 +134,8 @@ if new_ratios == 'new':
             if mode == 'pos' or mode == 'neg' or mode == 'both':
                 mode_flag = True
 
-        except:
-            # reprompt if original input causes an error
+        except AttributeError:
+            # re-prompt if original input causes an error
             mode = raw_input("\nEnter mode: ")
             mode = mode.lower()
 
@@ -151,8 +159,8 @@ if new_ratios == 'new':
             if write_ratios == 'y' or write_ratios == 'n':
                 write_ratios_flag = True
 
-        except:
-            # reprompt if original input causes an error
+        except AttributeError:
+            # re-prompt if original input causes an error
             write_ratios = raw_input("\nEnter 'y' or 'n': ")
             write_ratios = write_ratios.lower()
 
@@ -160,20 +168,19 @@ if new_ratios == 'new':
             if write_ratios == 'y' or write_ratios == 'n':
                 write_ratios_flag = True
 
-    # get lookup table
+    # get lookup table.
     lt = bmrb.getLookupTable('bmrb-db.csv')
 
-    # set up
-    # get element counts
+    # set up. elements could be changed but would need to do some editing elsewhere.
     elements = ['C', 'H', 'O', 'N']
     neg_comps = list()
     pos_comps = list()
 
-    #TODO lump all the pos statements under one conditional
-
+    # check to see if user wanted to process neg mode scans
     if mode == 'neg' or mode == 'both':
         print '\nProcessing negative scans...'
         for mz in neg_pos_mz_sets[0]:
+
             # adjust mass and search in lookup table. Store result in list.
             neg_comps.extend(bmrb.getFormulaFromMass(bmrb.adjust(mz, 'neg'), lt))
 
@@ -186,21 +193,27 @@ if new_ratios == 'new':
         # Turn elements into ratios
         neg_ratios = processElementalData.process_elemental_data(neg_elements)
 
+        # check if user had wanted to write an output file
         if write_ratios == 'y':
-            #TODO make try statement and generate output
+
+            # get filename
             neg_filename = raw_input("\nWhat would you like the negative output files to be called?"
                                      "\nEnter filename: ")
 
             # write file
             with open(neg_filename + '.txt', mode='w') as f:
+
                 # loop over and write each ratio to a file
                 for ratio in neg_ratios:
                     f.writelines(str(ratio).strip('[]') + '\n')
 
             print '\nRatios file successfully generated.\n'
 
-        print "\nYour plots will now be generated."
+        # Start plot generation
+        print '\nYour plots will now be generated.'
         plotType = ''
+
+        # get plot type input
         while plotType != 'done':
 
             plotType = raw_input("\nEnter 'done' to advance or enter a plot type to generate that plot."
@@ -235,7 +248,7 @@ if new_ratios == 'new':
         pos_ratios = processElementalData.process_elemental_data(pos_elements)
 
         if write_ratios == 'y':
-            # TODO make try statement and generate output
+
             pos_filename = raw_input("\nWhat would you like the positive output files to be called?\nEnter filename: ")
 
             # write file
@@ -254,7 +267,6 @@ if new_ratios == 'new':
                                  "\nPlot options are 'scatter', 'heatmap', and '3d'.\nEnter input: ")
 
             try:
-
                 if plotType != 'done':
                     print '\nThis may take a moment to make your positive mode plot.' \
                           '\nBe sure to save your plot then close it to continue.'
@@ -269,6 +281,8 @@ if new_ratios == 'new':
 elif new_ratios == 'load':
 
     load_flag = False
+
+    # Prompt and wait for valid input
     while not load_flag:
         print("\nPlease enter the file you would like to process."
               "\nRemember to include the file extension (.txt).")
@@ -280,13 +294,15 @@ elif new_ratios == 'load':
             print "Please try again. The file you use must be in the same folder as this script\n" \
                   "or have the file path."
 
+        # good input entered
         else:
             load_flag = True
 
-    # process ratios and plot
+    # read in ratios
     with open(load_file, 'r') as f:
         ratios = f.readlines()
 
+    # split ratios into proper values
     for i in range(0, len(ratios)):
         ratios[i] = ratios[i].split(', ')
 
@@ -296,24 +312,30 @@ elif new_ratios == 'load':
     ratios[2] = map(lambda x: x == 'True', ratios[2])
     ratios[3] = map(lambda x: float(x), ratios[3])
 
-    print "\nData loaded.\nYour plots will now be generated."
+    print '\nData loaded.\nYour plots will now be generated.'
+
     plotType = ''
+
+    # Get input for what type of plot(s) to generate
     while plotType != 'done':
 
         plotType = raw_input("\nEnter 'done' to advance or enter a plot type to generate that plot."
                              "\nPlot options are 'scatter', 'heatmap', and '3d'.\nEnter input: ")
 
+        # If a good plot type is entered, this will generate the desired result
         try:
             if plotType != 'done':
                 print '\nThis may take a moment to make your positive mode plot.' \
                       '\nBe sure to save your plot then close it to continue.'
                 plotVanK(ratiosList=ratios, typeOfPlot=plotType)
 
+        # this catches invalid options and reprompts
         except IOError:
             if plotType != 'done':
                 print '\nIncorrect input. Please enter a valid input.'
             pass
 
+# This shouldn't ever run but if there's something that was missed, this will catch it.
 else:
     print 'An unexpected input was provided'
     raise IOError

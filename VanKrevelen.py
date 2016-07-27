@@ -11,30 +11,6 @@ import matplotlib.pyplot as plt
 from extractNeededElementalData import extract_needed_elemental_data
 from processElementalData import process_elemental_data
 
-# usage_mesg = 'VanKrevelen.py <txt file(s)>'
-#
-# # Checks if files are available.
-# filename_txt = sys.argv[1]
-# if not os.access(filename_txt, os.R_OK):
-#     print "%s is not accessible." % filename_txt
-#     print usage_mesg
-#     sys.exit(1)
-#
-#
-# # If two arguments were given
-# if len(sys.argv) == 2:
-#
-#     # Assigns filename to the second argument provided in the command prompt
-#     filename_txt = sys.argv[1]
-#
-#     # Gets complete list of all element counts in all compounds identified
-#     elementalList = extract_needed_elemental_data(filename_txt)
-#
-#     # Gets complete list of ratios (also contains boolean for presence of nitrogen
-#     ratios_list = process_elemental_data(elementalList)
-# #TODO switch this back (unindent the section below and remove function call)
-#
-
 # Graphs the data provided and labels axes
 def plotVanKrevelen(ratios_list):
     area = 10.0
