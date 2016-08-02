@@ -3,6 +3,8 @@ Takes a csv as an input and works through the compounds to extract the number of
 present. It also notes if N is present and marks those points, then calculates the ratios of
 H:C and O:C and plots them and generates a Heatmap based on where the points cluster.
 '''
+
+
 import sys
 import os
 from extractNeededElementalData import extract_needed_elemental_data
@@ -35,24 +37,6 @@ def compareXY(XY1, XY2):
             okay = True
  
     return okay
-
-# usage_mesg = 'VanKrevelenHeatmap.py <txt file(s)>'
-#
-# # Checks if files are available.
-#
-# # filename_txt = "example-compounds-pos.txt"
-# filename_txt = sys.argv[1]
-# if(not os.access(filename_txt, os.R_OK)):
-#     print "%s is not accessible." % filename_txt
-#     print usage_mesg
-#     sys.exit(1)
-#
-#
-# if(len(sys.argv) == 2 ):
-#    filename_txt = sys.argv[1]
-#
-# elementalList = extract_needed_elemental_data(filename_txt)
-# ratiosList = process_elemental_data(elementalList)
 
 
 def plotHeatmap(ratiosList):
@@ -126,8 +110,29 @@ def plotHeatmap(ratiosList):
 
     print "Done!"
 
+'''
+Uncomment this section if you wish to run this script using the BMRB online data base and use the more
+flexible commandline options.
+
+usage_mesg = 'VanKrevelenHeatmap.py <txt file(s)>'
+
+# Checks if files are available.
+
+# filename_txt = "example-compounds-pos.txt"
+filename_txt = sys.argv[1]
+if(not os.access(filename_txt, os.R_OK)):
+    print "%s is not accessible." % filename_txt
+    print usage_mesg
+    sys.exit(1)
 
 
+if(len(sys.argv) == 2 ):
+   filename_txt = sys.argv[1]
+
+elementalList = extract_needed_elemental_data(filename_txt)
+ratiosList = process_elemental_data(elementalList)
+plotHeatmap(ratiosList)
+'''
 
 
 

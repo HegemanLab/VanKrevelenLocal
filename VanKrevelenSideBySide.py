@@ -10,26 +10,9 @@ import os
 import sys
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 from extractNeededElementalData import extract_needed_elemental_data
 from processElementalData import process_elemental_data
-
-# usage_mesg = 'VanKrevelenSideBySide.py <txt file(s)>'
-#
-#
-# # Checks if files are available.
-# filename_txt = sys.argv[1]
-# if not os.access(filename_txt, os.R_OK):
-#     print "%s is not accessible." % filename_txt
-#     print usage_mesg
-#     sys.exit(1)
-#
-# # Checks if the right number of arguments are provided.
-# if len(sys.argv) == 2:
-#     filename_txt = sys.argv[1]
-#     elementalList = extract_needed_elemental_data(filename_txt)
-#     ratiosList = process_elemental_data(elementalList)
 
 
 # Graphs the data provided and labels axes
@@ -105,3 +88,24 @@ def plotSideBySide(ratiosList):
     plt.show()
 
     print("done")
+
+'''
+Uncomment this section if you wish to run this script using the BMRB online data base and use the more
+flexible commandline options.
+
+usage_mesg = 'VanKrevelenSideBySide.py <txt file(s)>'
+
+# Checks if files are available.
+filename_txt = sys.argv[1]
+if not os.access(filename_txt, os.R_OK):
+    print "%s is not accessible." % filename_txt
+    print usage_mesg
+    sys.exit(1)
+
+# Checks if the right number of arguments are provided.
+if len(sys.argv) == 2:
+    filename_txt = sys.argv[1]
+    elementalList = extract_needed_elemental_data(filename_txt)
+    ratiosList = process_elemental_data(elementalList)
+    plotSideBySide(ratiosList)
+'''

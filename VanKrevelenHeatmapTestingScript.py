@@ -1,15 +1,19 @@
 '''
 Runs a batch of .csv files to generate multiple heatmaps. This code is less commented but
 operates mostly the same as the VanKrevelenHeatmap.py script so consult that if more
-help is needed.
+help is needed. Also, this script operates in the workflow that goes out to the BMRB database, not the local
+workflow.
 '''
 
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
 import heatmap
 from extractNeededElementalData import extract_needed_elemental_data
 from processElementalData import process_elemental_data
 
+
+# Your file names go here
+mappingFiles = ["example-neg.txt"]
 
 def compareXY(XY1, XY2):
     '''
@@ -22,13 +26,11 @@ def compareXY(XY1, XY2):
 
     okay = False
 
-    if XY1[0] < XY2[0] + X_ADJUST and XY1[0] > XY2[0] - X_ADJUST:
-        if XY1[1] < XY2[1] + Y_ADJUST and XY1[1] > XY2[1] - Y_ADJUST:
+    if XY2[0] - X_ADJUST < XY1[0] < XY2[0] + X_ADJUST:
+        if XY2[1] - Y_ADJUST < XY1[1] < XY2[1] + Y_ADJUST:
             okay = True
  
     return okay
-
-mappingFiles = ["example-neg.txt"]
 
 for files in mappingFiles:
     filename_txt = files

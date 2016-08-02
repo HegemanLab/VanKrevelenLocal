@@ -59,3 +59,28 @@ def plotVanKrevelen(ratios_list):
     plt.show()
 
     print("done")
+
+
+'''
+Uncomment this section if you wish to run this script using the BMRB online data base and use the more
+flexible commandline options.
+
+usage_mesg = 'VanKrevelen.py <txt file(s)>'
+
+# Checks if files are available.
+
+# filename_txt = "example-compounds-pos.txt"
+filename_txt = sys.argv[1]
+if(not os.access(filename_txt, os.R_OK)):
+    print "%s is not accessible." % filename_txt
+    print usage_mesg
+    sys.exit(1)
+
+
+if(len(sys.argv) == 2 ):
+   filename_txt = sys.argv[1]
+
+elementalList = extract_needed_elemental_data(filename_txt)
+ratiosList = process_elemental_data(elementalList)
+plotVanKrevelen(ratiosList)
+'''

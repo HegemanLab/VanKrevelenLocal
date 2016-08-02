@@ -1,7 +1,5 @@
 '''
-Similar to the first driver class but handles multiple files of one type (either mzML or mzXML) Processes them
-by dropping all duplicate m/z values to reduce clutter. Also opperates differently by starting with running the
-script, then having you enter in the files one by one.
+Can run this script to navigate through the entire local workflow. Works for single input files or multiple.
 '''
 
 import os

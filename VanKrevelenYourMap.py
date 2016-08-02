@@ -7,14 +7,11 @@ Due to taking two inputs, this plotting option was left out of the commandline a
 however, it can still be used by saving the ratios lists to files, reading them in in the command
 line or through another script, and then using those as parameters to the core function of this script.
 '''
-import os
-import sys
+
 
 import matplotlib.pyplot as plt
-
 import heatmap
-from extractNeededElementalData import extract_needed_elemental_data
-from processElementalData import process_elemental_data
+
 
 # Little function to make the testing to see if the points are close a bit easier.
 def compareXY(XY1, XY2):

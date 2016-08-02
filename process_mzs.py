@@ -16,18 +16,32 @@ def process_mzs(mzXML_obj, threshold=.1):  # What fraction of the max intensity 
     for scan in mzXML_obj.MS1_list:
         thresh = max(scan.intensity_list) * threshold
         i = 0
+
+        # Look through each peak in each scan
         for peak in scan.intensity_list:
+
+            # if the intensity is great enough
             if peak > thresh:
+
+                # Determine the polarity
                 if scan.polarity == '-':
                     keepers_neg_mz.append(scan.mz_list[i])
                 elif scan.polarity == '+':
                     keepers_pos_mz.append(scan.mz_list[i])
             i += 1
+
+    # Second list of scans found in some mzXML objects
     for scan in mzXML_obj.MS2_list:
         thresh = max(scan.intensity_list) * threshold
         i = 0
+
+        # Look through each peak in each scan
         for peak in scan.intensity_list:
+
+            # if the intensity is great enough
             if peak > thresh:
+
+                # Determine the polarity
                 if scan.polarity == '-':
                     keepers_neg_mz.append(scan.mz_list[i])
                 elif scan.polarity == '+':

@@ -1,18 +1,13 @@
 '''
-Churns through an mzML object to generate lists of positive and negative
-mz values.
+Takes an mzML object which contains a list of intensities, a
+list of mzs, and a value for the threshold intensity for filtering.
 
 pymzml citation
 Bald, T., Barth, J., Niehues, A., Specht, M., Hippler, M., and Fufezan, C. (2012) pymzML - Python module for high throughput bioinformatics on mass spectrometry data, Bioinformatics, doi: 10.1093/bioinformatics/bts066
 '''
 
+
 import pymzml
-
-import sys
-
-
-# Takes an mzXML object which contains a list of intensities, a
-# list of mzs, and a value for the threshold intensity for filtering.
 
 
 def process_mzs(file_name, threshold=.1):  # What fraction of the max intensity will be used for a threshold
@@ -48,6 +43,7 @@ def process_mzs(file_name, threshold=.1):  # What fraction of the max intensity 
             for peak in spectrum.peaks:
                 if peak[1] > thresh:
 
+                    # Check for polarity once intensity is determined to be high enough
                     negative_polarity = spectrum.get('MS:1000129', False)
                     if negative_polarity == '':
                         keepers_neg_mz.append(peak[0])
@@ -55,6 +51,7 @@ def process_mzs(file_name, threshold=.1):  # What fraction of the max intensity 
                     positive_polarity = spectrum.get('MS:1000130', False)
                     if positive_polarity == '':
                         keepers_pos_mz.append(peak[0])
+
         except:
             pass
 
