@@ -76,10 +76,10 @@ if new_ratios == 'new':
 
     # explain what the threshold is
     print("\nNext this script will process your files. \nIt will do so by processing each file individually. \nTo do so "
-          "it will look at the maximum intensity of a spectrum in the file and then assign a threshold to value that "
-          "is some percentage of that maximum. \nThe threshold will be used to determine what values are significant and "
-          "what values are just noise. \nWe recommend a threshold of 10% but you can set your own here. Please enter your "
-          "threshold percentage as a number with no percentage sign. \n(For example, if you wanted 15%, enter 15)")
+          "it will look at the maximum \nintensity of a spectrum in the file and then assign \na threshold to value that "
+          "is some \npercentage of that maximum. The threshold will be \nused to determine what values are significant and"
+          "\nwhat values are just noise. We recommend a threshold\nof 10% but you can set your own here. Please enter \nyour "
+          "threshold percentage as a number with no \npercentage sign. \n(For example, if you wanted 15%, enter 15)")
 
     # get input and set up flag
     threshold_input = raw_input("\nThreshold: ")
@@ -94,6 +94,28 @@ if new_ratios == 'new':
         # Catch non numeric values that were entered
         except ValueError or TypeError:
             threshold_input = raw_input("\nIncorrect input, please enter just a number.\nThreshold: ")
+
+    # explain what the error/mass distribution is
+    print(
+    "\nNext please enter an acceptable error range \n(mass distribution). This is measured in terms of \nparts per "
+    "million (ppm). The error range will \nbe used to determine what masses are a match when \nsearching for chemical"
+    "formulas. As a starting \npoint, 5 ppm is the default but adjust this accordingly\n for your data set. Error ranges"
+    "higher than 10 are \nnot entirely suitable for this type of analysis but \nuse your own discression.\n"
+    "Please enter your error (mass distribution) now.")
+
+    # get input and set up flag
+    error_input = raw_input("\nError: ")
+    error_flag = False
+
+    # checks to make sure an appropriate threshold is entered
+    while not error_flag:
+        try:
+            error = float(error_input)
+            error_flag = True
+
+        # Catch non numeric values that were entered
+        except ValueError or TypeError:
+            error_input = raw_input("\nIncorrect input, please enter just a number.\nError: ")
 
     # prepares to process mzs from input files
     neg_pos_mz_sets = [[], []]
@@ -167,7 +189,7 @@ if new_ratios == 'new':
                 write_ratios_flag = True
 
     # get lookup table.
-    lt = bmrb.getLookupTable('bmrb-db.csv')
+    lt = bmrb.getLookupTable('bmrb-db2.csv')
 
     # set up. elements could be changed but would need to do some editing elsewhere.
     elements = ['C', 'H', 'O', 'N']
@@ -180,7 +202,7 @@ if new_ratios == 'new':
         for mz in neg_pos_mz_sets[0]:
 
             # adjust mass and search in lookup table. Store result in list.
-            neg_comps.extend(bmrb.getFormulaFromMass(bmrb.adjust(mz, 'neg'), lt))
+            neg_comps.append(bmrb.getFormulaFromMass(bmrb.adjust(mz, 'neg'), lt, tolerance=error))
 
         # Filter out no matches
         neg_comps = filter(lambda a: a != 'No Match', neg_comps)
@@ -234,7 +256,7 @@ if new_ratios == 'new':
         print '\nProcessing positive scans...'
         for mz in neg_pos_mz_sets[1]:
             # adjust mass and search in lookup table. Store result in list.
-            pos_comps.extend(bmrb.getFormulaFromMass(bmrb.adjust(mz, 'pos'), lt))
+            pos_comps.append(bmrb.getFormulaFromMass(bmrb.adjust(mz, 'pos'), lt))
 
         # Filter out no matches
         pos_comps = filter(lambda a: a != 'No Match', pos_comps)

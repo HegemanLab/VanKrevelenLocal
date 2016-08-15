@@ -13,40 +13,28 @@ def getLookupTable(tableFilename):
     return lookup_df
 
 
-# Takes an individual mass and uses the lookupTable and tolerance ot find the formula for a molecule of that mass
-def getFormulaFromMass(mass, lookupTable, tolerance=.005):
+# Takes an individual mass and uses the lookupTable and tolerance to find the formula for a molecule of that mass
+# tolerance is given in ppm
+def getFormulaFromMass(mass, lookupTable, tolerance=5):
 
     # get list of weights to make checking tolerance window easier
     wt_list = list(lookupTable["Formula_mono_iso_wt_nat"])
 
     # Check all weights to see which fit in the tolerance window
-    bools = [True if (mass + tolerance) >= x >= (mass - tolerance) else False for x in wt_list]
+    # bools = [True if (mass + tolerance) > x > (mass - tolerance) else False for x in wt_list]
+
+    # other ppm check
+    bools = [True if (abs(mass - x) / x) * 1000000 <= tolerance else False for x in wt_list]
 
     # get the formulas of the molecules with masses that were within the tolerance
-    returned = lookupTable[bools]['Formula']
+    returned = lookupTable[bools][['Formula_mono_iso_wt_nat', 'Formula']]
+    returned['diff'] = abs(returned['Formula_mono_iso_wt_nat'] - mass)
 
     # Set up in case nothing was found
     comp = "No Match"
     try:
-        # remove duplicate values that are returned
-        comp = set(returned)
-
-        # If anything was found within the tolerance
-        if len(comp) > 0:
-
-            # make a copy so that comp can still be returned either way
-            compCopy = copy.copy(comp)
-            compsTemp = []
-
-            # loop through each item in the set
-            for i in range(0, len(comp)):
-
-                # remove whitespace because of how extractNeededElementalData is written
-                spaced = compCopy.pop()
-                compsTemp.append(spaced.replace(" ", ""))
-
-            # set up comp for returning the right values
-            comp = compsTemp
+        # If there were multiple matches, this returns the 'best' match based on it being closest in mass
+        comp = returned['Formula'][returned['diff'].idxmin()]
 
     # return the compound formula
     finally:
