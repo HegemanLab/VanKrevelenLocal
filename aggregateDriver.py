@@ -104,7 +104,7 @@ if new_ratios == 'new':
     "Please enter your error (mass distribution) now.")
 
     # get input and set up flag
-    error_input = raw_input("\nError: ")
+    error_input = raw_input("\nTolerance: ")
     error_flag = False
 
     # checks to make sure an appropriate threshold is entered
