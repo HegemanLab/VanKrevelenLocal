@@ -53,5 +53,5 @@ Each of these scripts contain functions for generating the designated types of p
 
 
 ## Hegeman Lab - University of Minnesota Twin-Cities
-This code was developed for use in the Hegeman Lab at the University of Minnesota Twin-Cities. If you use this script in your research, please don't forget to site us. Additionally, if there are any questions about how to use this code, feel free to contact the lab or [Stephen Brockman](brock197@umn.edu). Additionally you can see Stephen Brockman's publication for more details.  
+This code was developed for use in the Hegeman Lab at the University of Minnesota Twin-Cities. If you use this script in your research, please don't forget to acknowledge or cite our publication. Additionally, if there are any questions about how to use this code, feel free to contact the lab or [Stephen Brockman](mailto:brock197@umn.edu). Additionally you can see Stephen Brockman's publication for more details.  
 
