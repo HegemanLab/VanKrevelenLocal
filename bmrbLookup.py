@@ -47,9 +47,9 @@ def adjust(mass, polarity):
     hm = 1.007276
 
     if polarity == 'pos':
-        mass += hm
-    elif polarity == 'neg':
         mass -= hm
+    elif polarity == 'neg':
+        mass += hm
 
     return mass
 
